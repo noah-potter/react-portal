@@ -3,6 +3,7 @@
   "version": "2.2.1",
   "description": "React component for transportation of modals, lightboxes, loading bars... to document.body",
   "main": "build/portal",
+  "private": true,
   "files": [
     "*.md",
     "LICENSE",
