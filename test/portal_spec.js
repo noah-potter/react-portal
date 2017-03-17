@@ -1,7 +1,7 @@
 import jsdom from 'jsdom';
 import Portal from '../lib/portal';
 import assert from 'assert';
-import { spy } from 'sinon';
+import { spy, match } from 'sinon';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { mount } from 'enzyme';
 
@@ -116,6 +116,18 @@ describe('react-portal', () => {
       const wrapper = mount(<Portal {...props}><p>Hi</p></Portal>);
       assert(props.onOpen.calledOnce);
       assert(props.onOpen.calledWith(wrapper.instance().node));
+    });
+
+    it('should call props.onOpen() with click event when portal open on click', () => {
+      const props = { 
+        onOpen: spy(),
+        openByClickOn: <button>button</button>
+      };
+
+      const wrapper = mount(<Portal {...props}><p>Hi</p></Portal>);
+      wrapper.find('button').simulate('click');
+
+      assert(props.onOpen.getCall(0).args.length == 2);
     });
 
     it('should not call props.onOpen() when portal receives props', () => {
